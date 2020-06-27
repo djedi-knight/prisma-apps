@@ -69,12 +69,12 @@ async function main() {
   console.log("deleted user:");
   console.log(deletedUser);
 
-  // Delete the created post
-  const deletedPost = await prisma.post.delete({
-    where: { id: 2 },
+  // Delete the created posts
+  filteredPosts.forEach(async (data) => {
+    await prisma.post.delete({
+      where: { id: data.id },
+    });
   });
-  console.log("deleted post:");
-  console.log(deletedPost);
 }
 
 main()
