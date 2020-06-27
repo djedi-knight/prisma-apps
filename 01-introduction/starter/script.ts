@@ -50,6 +50,15 @@ async function main() {
   });
   console.log("filtered posts:");
   console.dir(filteredPosts, { depth: null });
+
+  // Get all posts for a specific user
+  const userPosts = await prisma.user
+  .findOne({
+    where: { email: "sarah@prisma.io" },
+  })
+  .posts()
+  console.log("user posts:");
+  console.dir(userPosts, { depth: null });
 }
 
 main()
