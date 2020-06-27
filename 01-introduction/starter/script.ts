@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 // A `main` function so that you can use async/await
 async function main() {
   // Create a post
-  await prisma.post.create({
+  const createdPost = await prisma.post.create({
     data: {
       title: "Prisma makes databases easy",
       author: {
@@ -13,6 +13,8 @@ async function main() {
       },
     },
   });
+  console.log("created post:");
+  console.log(createdPost);
 
   // Publish the post
   await prisma.post.update({
@@ -49,16 +51,30 @@ async function main() {
     },
   });
   console.log("filtered posts:");
-  console.dir(filteredPosts, { depth: null });
+  console.log(filteredPosts);
 
   // Get all posts for a specific user
   const userPosts = await prisma.user
-  .findOne({
-    where: { email: "sarah@prisma.io" },
-  })
-  .posts()
+    .findOne({
+      where: { email: "maria@prisma.io" },
+    })
+    .posts();
   console.log("user posts:");
-  console.dir(userPosts, { depth: null });
+  console.log(userPosts);
+
+  // Delete a user
+  const deletedUser = await prisma.user.delete({
+    where: { email: "nancy@prisma.io" },
+  });
+  console.log("deleted user:");
+  console.log(deletedUser);
+
+  // Delete the created post
+  const deletedPost = await prisma.post.delete({
+    where: { id: 2 },
+  });
+  console.log("deleted post:");
+  console.log(deletedPost);
 }
 
 main()
