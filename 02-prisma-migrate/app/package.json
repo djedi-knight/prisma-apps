@@ -5,6 +5,10 @@
   "main": "index.js",
   "scripts": {
     "go": "ts-node ./index.ts",
+    "prisma-introspect": "prisma introspect",
+    "prisma-migrate-save": "prisma migrate save --experimental",
+    "prisma-migrate-up": "prisma migrate up --experimental",
+    "prisma-generate": "prisma generate",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
