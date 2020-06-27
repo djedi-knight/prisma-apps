@@ -14,17 +14,28 @@ async function main() {
     },
   })
   // Publish the post
-  const post = await prisma.post.update({
+  await prisma.post.update({
     where: { id: 2 },
     data: { published: true },
   })
-  console.log(post)
   // Get all users (include posts)
   const allUsers = await prisma.user.findMany({
     include: { posts: true },
   })
-  // use `console.dir` to print nested objects
+  console.log('all users:')
+  // Use `console.dir` to print nested objects
   console.dir(allUsers, { depth: null })
+  // Filter all posts containing the word `prisma`
+  const filteredPosts = await prisma.post.findMany({
+    where: {
+      OR: [
+        { title: { contains: "prisma" } },
+        { content: { contains: "prisma" } },
+      ],
+    },
+  })
+  console.log('filtered posts:')
+  console.dir(filteredPosts, { depth: null })
 }
 
 main()
