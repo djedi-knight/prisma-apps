@@ -5,6 +5,9 @@ const prisma = new PrismaClient()
 // A `main` function so that you can use async/await
 async function main() {
   // ... you will write your Prisma Client queries here
+  // Get all users
+  const allUsers = await prisma.user.findMany()
+  console.log(allUsers)
 }
 
 main()
